@@ -20,7 +20,7 @@ function Input(props){
     }
     React.useEffect(() => {
         (inputRef.current.validity.valid || Boolean(props.defaultValue)) ? props.functions.setFormValidation({...props.formValidation, [props.name]: true}) : props.functions.setFormValidation({...props.formValidation, [props.name]: false}) 
-        props.functions.setFormState({...props.formState, [props.name]: inputRef.current.value})
+        if (props.type !== 'hidden') props.functions.setFormState({...props.formState, [props.name]: inputRef.current.value})
         console.log(props.formValidation)
 
         return(() => {

@@ -48,6 +48,7 @@ function App() {
   }
   const submitDeleteLocation = (e) => {
     e.preventDefault()
+    console.log(deleteLocationData)
     api.deleteCard(deleteLocationData).then(res => {
       setLocationsData(locationsData.filter(location => location._id !== deleteLocationData.id))
     }).finally(closeAllOverlays)
