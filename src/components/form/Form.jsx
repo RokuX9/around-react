@@ -33,7 +33,10 @@ function Form (props){
     const formRef = React.useRef(null)
 
     React.useEffect(() => {
-        if (props.form.isOpen) return
+        if (props.form.isOpen) {
+            Object.values(formValidation).every(element => element === true) ? setDisableButton(false) : setDisableButton(true)
+            return
+        }
         formRef.current.reset()
     },[props.form.isOpen])
 

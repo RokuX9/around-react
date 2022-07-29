@@ -3,9 +3,9 @@
 }
 
 .button_inactive {
-    background-color: transparent !important; 
-    border: 1px solid rgba(0,0,0,.2) !important;
-    color: rgba(0,0,0,.2) !important;
+    background-color: transparent; 
+    border: 1px solid rgba(0,0,0,.2);
+    color: rgba(0,0,0,.2);
     pointer-events: none;
 }
 
