@@ -1,0 +1,18 @@
+.button {
+    transition: opacity .1s ease;
+}
+
+.button_inactive {
+    background-color: transparent !important; 
+    border: 1px solid rgba(0,0,0,.2) !important;
+    color: rgba(0,0,0,.2) !important;
+    pointer-events: none;
+}
+
+.button_hidden {
+    display: none;
+}
+
+.button:hover {
+    cursor: pointer;
+}

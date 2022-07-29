@@ -1,0 +1,17 @@
+.locations {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 17px;
+    width: -webkit-fill-available;
+}
+
+@media screen and (max-width: 900px) {
+    .locations {
+        margin-top: 36px;
+        padding: 0 19px;
+        display: flex;
+        flex-flow: column;
+
+    }
+}

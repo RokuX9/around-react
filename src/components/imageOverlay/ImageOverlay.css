@@ -1,0 +1,12 @@
+.overlay__image {
+    max-height: 75vh;
+    max-width: 75vw;
+}
+
+.overlay__location-name {
+    font-size: 12px;
+    line-height: 15px;
+    padding-top: 10px;
+    color: white;
+    margin: 0;
+}

@@ -1,0 +1,80 @@
+.overlay {
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0,0,0,.5);
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: visibility 0s .5s linear, opacity .5s linear;
+}
+
+.overlay_opened {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    transition-delay: 0s;
+}
+
+.overlay__form {
+    position: relative;
+    z-index: 2;
+    width: 430px;
+}
+
+.overlay__button_type_close {
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    transform: rotate(45deg);
+    border: 0px;
+    background-color: transparent;
+    background-image: url("../../assets/plus.svg");
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay__button_type_close:hover {
+    opacity: .6;
+}
+
+.overlay__element {
+    max-width: 0;
+    max-height: 0;
+    visibility: none;
+    opacity: 0;
+    position: relative;
+    pointer-events: none;
+    transition: all 0s .5s, opacity .5s linear;
+}
+
+.overlay__element_opened {
+    max-height: 100%;
+    max-width: 100%;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    transition-delay: 0s;
+}
+
+@media screen and (max-width: 900px) {
+    
+    .overlay__form{
+        width: 282px;
+    }
+
+    .overlay__button_type_close {
+        height: 26px;
+        width: 26px;
+        right: 0;
+        top: -42px;
+    }
+}
