@@ -19,8 +19,9 @@ function Input(props){
     }
     }
     React.useEffect(() => {
-        inputRef.current.validity.valid ? props.functions.setFormValidation({...props.formValidation, [props.name]: true}) : props.functions.setFormValidation({...props.formValidation, [props.name]: false}) 
+        (inputRef.current.validity.valid || Boolean(props.defaultValue)) ? props.functions.setFormValidation({...props.formValidation, [props.name]: true}) : props.functions.setFormValidation({...props.formValidation, [props.name]: false}) 
         props.functions.setFormState({...props.formState, [props.name]: inputRef.current.value})
+        console.log(props.formValidation)
 
         return(() => {
             setErrorMessage("")

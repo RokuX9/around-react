@@ -5,7 +5,7 @@ import Input from '../input/Input';
 
 function Form (props){
     const validtionObject = props.form.inputs.reduce((prev, curr) => {
-        return {...prev, [curr.name]: false}
+        return {...prev, [curr.name]: true}
     },{})
     const [formValidation, setFormValidation] = React.useState(validtionObject)
     const [disableButton, setDisableButton] = React.useState(true)
@@ -13,7 +13,7 @@ function Form (props){
         const setFormState = (e) => {
             props.form.setFormState({...props.form.formState, [input.name]: e.target.value})
         }
-
+        
         switch (input.type) {
             case 'text':
                 return <Input type="text" isOpen={props.form.isOpen} formValidation={formValidation} formState={props.form.formState} placeholder={input.placeHolder} defaultValue={props.form.hasInitialState ? props.form.formState[input.name] : ""} name={input.name} minLength={input.minLength} maxLength={input.maxLength} onChange={setFormState} className="form__input" id={input.id} functions={{setFormValidation, setFormState: props.form.setFormState }} required />
@@ -21,12 +21,6 @@ function Form (props){
                 return <Input type="url" isOpen={props.form.isOpen} formValidation={formValidation} formState={props.form.formState} placeholder={input.placeHolder} name={input.name} onChange={setFormState} className="form__input" id={input.id} functions={{setFormValidation, setFormState: props.form.setFormState }} required/>
             case 'hidden':
                 return <Input type="hidden" isOpen={props.form.isOpen} formValidation={formValidation} formState={props.form.formState} name={input.name} className="form__input" id={input.id} functions={{setFormValidation, setFormState: props.form.setFormState }} required/>;
-        }
-    }
-
-    const shouldAddError = (input) => {
-        if (input.type !== 'hidden'){
-            return <span className={"form__input-text-error " + input.id + "-error"}>An Error</span>
         }
     }
 
@@ -56,7 +50,6 @@ function Form (props){
                         return (
                         <div className="form__row" key={input.name + "-" + i}>
                             {switchInputType(input)}
-                            {shouldAddError(input)}
                         </div>
                         )
                     })}
