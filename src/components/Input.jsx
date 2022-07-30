@@ -1,5 +1,5 @@
 import React from "react";
-import './Input.css';
+import '../blocks/Input.css';
 
 function Input(props){
     const inputRef = React.useRef(null)
@@ -7,21 +7,20 @@ function Input(props){
     const [showError, setShowError] = React.useState(false)
     
     const handleInput = () => {
-        props.functions.setFormState({...props.formState, [props.name]: inputRef.current.value})
+        props.setFormState(props.name, inputRef.current.value)
         if (inputRef.current.validity.valid) {
             setShowError(false)
             setErrorMessage("")
-            props.functions.setFormValidation({...props.formValidation, [props.name]: true})
+            props.setValidation(props.name, true)
         } else { 
             setShowError(true)
             setErrorMessage(inputRef.current.validationMessage)
-            props.functions.setFormValidation({...props.formValidation, [props.name]: false}) 
+            props.setValidation(props.name, false) 
     }
     }
     React.useEffect(() => {
-        (inputRef.current.validity.valid || Boolean(props.defaultValue)) ? props.functions.setFormValidation({...props.formValidation, [props.name]: true}) : props.functions.setFormValidation({...props.formValidation, [props.name]: false}) 
-        if (props.type !== 'hidden') props.functions.setFormState({...props.formState, [props.name]: inputRef.current.value})
-        console.log(props.formValidation)
+        (inputRef.current.validity.valid || Boolean(props.defaultValue)) ? props.setValidation(props.name, true) : props.setValidation(props.name, false) 
+        if (props.type !== 'hidden') props.setFormState(props.name, inputRef.current.value)
 
         return(() => {
             setErrorMessage("")

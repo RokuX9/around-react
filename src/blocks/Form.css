@@ -30,13 +30,13 @@
 
 .form__button_type_save {
     padding: 14px 100px;
-    background-color: black;
-    color: white;
     border-radius: 2px;
-    border: 0px;
     margin: 48px 36px 0 36px;
     font-size: 18px;
     line-height: 22px;
+    background-color: black;
+    color: white;
+    border: 0px;
 }
 
 

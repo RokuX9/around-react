@@ -1,8 +1,8 @@
 import React from "react";
-import './ImageOverlay.css';
-import Button from "../button/Button";
+import '../blocks/ImageOverlay.css';
+import Button from "./Button";
 
-function ImageOverlay(props){
+function ImagePopup(props){
 
     return (
         <div className={props.overlayOpened ? "overlay__location overlay__element overlay__element_opened" : "overlay__location overlay__element" }>
@@ -13,4 +13,4 @@ function ImageOverlay(props){
     )
 }
 
-export default ImageOverlay
+export default ImagePopup

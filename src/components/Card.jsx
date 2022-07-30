@@ -1,32 +1,26 @@
 import React from "react";
-import './Location.css';
-import Button from "../button/Button";
-import Locations from "../locations/Locations";
+import '../blocks/Location.css';
+import Button from "./Button";
 
-function Location(props){
+function Card(props){
     const openImageOverlay = () => {
-        props.functions.setImageOverlayData({name: props.data.name, link: props.data.link})
-        props.functions.openImageOverlay()
+        props.setImageOverlayData({name: props.data.name, link: props.data.link})
+        props.openImageOverlay()
     }
     const openDeleteLocationOverlay = () => {
-        props.functions.setDeleteLocationData({id: props.data._id})
-        props.functions.openDeleteLocationOverlay()
+        props.setDeleteLocationData({id: props.data._id})
+        props.openDeleteLocationOverlay()
     }
     const isUserLiked = props.data.likes.find(user => {
         return user._id === props.user.id
     })
 
-    const updateLocationState = (newState) => {
-        const copyArray = props.locationsData
-        copyArray.splice(props.locationIndex, 1, newState)
-        props.functions.setLocationsData([...copyArray])
-    }
 
     const handleLike = () => {
         if (!isUserLiked) {
-            props.functions.like(props.data._id).then(res => updateLocationState(res)).catch(err => console.log(err))
+            props.like(props.data._id, props.locationIndex)
         } else {
-            props.functions.unlike(props.data._id).then(res => updateLocationState(res)).catch(err => console.log(err))
+            props.unlike(props.data._id, props.locationIndex)
         }
     }
 
@@ -45,4 +39,4 @@ function Location(props){
     )
 }
 
-export default Location
+export default Card

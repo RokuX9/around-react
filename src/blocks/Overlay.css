@@ -37,7 +37,7 @@
     transform: rotate(45deg);
     border: 0px;
     background-color: transparent;
-    background-image: url("../../assets/plus.svg");
+    background-image: url("../images/plus.svg");
     background-size: cover;
     background-position: center;
 }

@@ -9,7 +9,7 @@
     height: 120px;
     width: 120px;
     border-radius: 50%;
-    background-image: url("../../assets/profile.jpg");
+    background-image: url("../images/profile.jpg");
     background-size: cover;
 }
 
@@ -17,7 +17,7 @@
     height: 120px;
     width: 120px;
     border-radius: 50%;
-    background-image: url("../../assets/pencil.svg");
+    background-image: url("../images/pencil.svg");
     background-size: 24px 24px;
     background-repeat: no-repeat;
     background-position: center;
@@ -59,7 +59,7 @@
 }
 
 .dash__button_type_edit-info {
-    background-image: url("../../assets/pencil.svg");
+    background-image: url("../images/pencil.svg");
     background-size: 10px 10px;
     background-repeat: no-repeat;
     background-position: center;
@@ -85,7 +85,7 @@
 }
 
 .dash__button_type_add-place {
-    background-image: url("../../assets/plus.svg");
+    background-image: url("../images/plus.svg");
     background-size: 22px 22px;
     background-repeat: no-repeat;
     background-position: center;
