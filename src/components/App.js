@@ -1,16 +1,17 @@
 import React from 'react'
 import '../blocks/App.css';
 import Api from '../utils/Api'
-import { ApiObject } from '../utils/constants';
+import { apiObject } from '../utils/constants';
 import Header from './Header';
-import Main from './Main';
+import Dash from './Dash';
 import Footer from './Footer';
 import Overlay from './Overlay';
 import Locations from './Locations';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
+import Main from './Main'
 
-const api = new Api(ApiObject)
+const api = new Api(apiObject)
 function App() {
   const [locationsData, setLocationsData] = React.useState([])
   const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
@@ -58,8 +59,10 @@ function App() {
   }
   const updateLocationState = (newState, locationIndex) => {
     const copyArray = locationsData
+    if(locationsData[locationIndex]._id === newState._id){
     copyArray.splice(locationIndex, 1, newState)
     setLocationsData([...copyArray])
+  }
 }
   const likeCard = (id, locationIndex) => {
     api.likeCard(id).then(res => updateLocationState(res, locationIndex)).catch(err => console.log(err))
@@ -82,10 +85,10 @@ function App() {
     <div className="App">
       <div className="page">
         <Header />
-        <main>
-            <Main setDashInfoData={setDashInfoData} openAddLocationOverlay={openAddLocationOverlay} openDashImageOverlay={openDashImageOverlay} openDashInfoOverlay={openDashInfoOverlay} infoData={dashData} />
+        <Main>
+            <Dash setDashInfoData={setDashInfoData} openAddLocationOverlay={openAddLocationOverlay} openDashImageOverlay={openDashImageOverlay} openDashInfoOverlay={openDashInfoOverlay} infoData={dashData} />
             <Locations unlike={unlikeCard} like={likeCard} openDeleteLocationOverlay={openDeleteLocationOverlay} setDeleteLocationData={setDeleteLocationData} setImageOverlayData={setImageOverlayData} openImageOverlay={openImageOverlay} locationsData={locationsData} user={dashData}/>
-        </main>
+        </Main>
         <Footer />
       </div>
       <Overlay isOpen={isOpen.mainOverlay} closeAllOverlays={closeAllOverlays}>

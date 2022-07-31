@@ -6,8 +6,8 @@ function Input(props){
     const [errorMessage, setErrorMessage] = React.useState("")
     const [showError, setShowError] = React.useState(false)
     
-    const handleInput = () => {
-        props.setFormState(props.name, inputRef.current.value)
+    const handleInput = (e) => {
+        props.setFormState(props.name, e.target.value)
         if (inputRef.current.validity.valid) {
             setShowError(false)
             setErrorMessage("")
@@ -31,7 +31,15 @@ function Input(props){
     
     return (
         <>
-            <input type={props.type} ref={inputRef} placeholder={props.placeholder} defaultValue={props.defaultValue} name={props.name} minLength={props.minLength} maxLength={props.maxLength} onChange={handleInput} className={"input " + props.className + (showError ? " input_error" : "")} id={props.id} required />
+            <input type={props.type} 
+            ref={inputRef} 
+            placeholder={props.placeholder} 
+            defaultValue={props.defaultValue} 
+            name={props.name} minLength={props.minLength} 
+            maxLength={props.maxLength} 
+            onChange={handleInput} 
+            className={"input " + props.className + (showError ? " input_error" : "")} 
+            id={props.id} required />
             <span className={showError ? "input-text-error input-text-error_active" : "input-text-error" }>{errorMessage}</span>
         </>
     )
