@@ -1,9 +1,18 @@
 import React from "react";
 import "../blocks/Overlay.css";
 import PopupWithForm from "./PopupWithForm";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Overlay(props) {
+  const currentUser = React.useContext(CurrentUserContext);
   const overlayRef = React.useRef(null);
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  });
 
   React.useEffect(() => {
     if (!props.isOpen) return;
@@ -37,6 +46,7 @@ function Overlay(props) {
             minLength: 2,
             maxLength: 40,
             id: "dash-name",
+            defaultValue: name,
           },
           {
             type: "text",
@@ -45,6 +55,7 @@ function Overlay(props) {
             minLength: 2,
             maxLength: 200,
             id: "dash-subtitle",
+            defaultValue: description,
           },
         ]}
         buttonText="Save"

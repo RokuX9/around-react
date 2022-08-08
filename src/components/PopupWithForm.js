@@ -24,9 +24,7 @@ function PopupWithForm(props) {
             type="text"
             isOpen={props.isOpen}
             placeholder={input.placeHolder}
-            defaultValue={
-              props.hasInitialState ? props.formState[input.name] : ""
-            }
+            defaultValue={props.hasInitialState ? input.defaultValue : ""}
             name={input.name}
             minLength={input.minLength}
             maxLength={input.maxLength}
