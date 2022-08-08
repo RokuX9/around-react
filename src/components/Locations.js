@@ -9,8 +9,7 @@ function Locations(props) {
         <Card
           data={location}
           locationIndex={i}
-          like={props.like}
-          unlike={props.unlike}
+          handleLikePress={props.handleLikePress}
           setImageOverlayData={props.setImageOverlayData}
           openImageOverlay={props.openImageOverlay}
           setDeleteLocationData={props.setDeleteLocationData}

@@ -15,8 +15,7 @@ function Main(props) {
         userData={userData}
       />
       <Locations
-        unlike={props.unlike}
-        like={props.like}
+        handleLikePress={props.handleLikePress}
         openDeleteLocationOverlay={props.openDeleteLocationOverlay}
         setDeleteLocationData={props.setDeleteLocationData}
         setImageOverlayData={props.setImageOverlayData}

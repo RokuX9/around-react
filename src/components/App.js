@@ -135,6 +135,14 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const handleLikePress = (isLiked, id, index) => {
+    if (!isLiked) {
+      likeCard(id, index);
+    } else {
+      unlikeCard(id, index);
+    }
+  };
+
   React.useEffect(() => {
     Promise.all([apiInstance.getInitialCards(), apiInstance.getUserInfo()])
       .then(([locations, info]) => {
@@ -160,8 +168,7 @@ function App() {
             openAddLocationOverlay={openAddLocationOverlay}
             openDashImageOverlay={openDashImageOverlay}
             openDashInfoOverlay={openDashInfoOverlay}
-            unlike={unlikeCard}
-            like={likeCard}
+            handleLikePress={handleLikePress}
             openDeleteLocationOverlay={openDeleteLocationOverlay}
             setDeleteLocationData={setDeleteLocationData}
             setImageOverlayData={setImageOverlayData}
