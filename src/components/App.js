@@ -13,7 +13,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
   const [cards, setCards] = React.useState([]);
-  const [imageOverlayData, setImageOverlayData] = React.useState({
+  const [selectedCard, setSelectedCard] = React.useState({
     name: "",
     link: "",
   });
@@ -163,7 +163,7 @@ function App() {
             handleLikePress={handleLikePress}
             openDeleteLocationOverlay={openDeleteLocationOverlay}
             setDeleteLocationData={setDeleteLocationData}
-            setImageOverlayData={setImageOverlayData}
+            setImageOverlayData={setSelectedCard}
             openImageOverlay={openImageOverlay}
             locationsData={cards}
           ></Main>
@@ -172,7 +172,7 @@ function App() {
         <ImagePopup
           isOpen={isImagePopupOpen}
           closeAllOverlays={closeAllOverlays}
-          locationData={imageOverlayData}
+          locationData={selectedCard}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
