@@ -12,7 +12,7 @@ function Overlay(props) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  });
+  }, [currentUser]);
 
   React.useEffect(() => {
     if (!props.isOpen) return;
