@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../blocks/App.css";
-import Api from "../utils/Api";
+import Api from "../utils/api";
 import { apiObject } from "../utils/constants";
 import Header from "./Header";
 import Dash from "./Dash";
