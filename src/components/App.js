@@ -10,6 +10,7 @@ import Locations from "./Locations";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 import Main from "./Main";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 const api = new Api(apiObject);
 function App() {
@@ -161,24 +162,25 @@ function App() {
 
   return (
     <div className="App">
-      <div className="page">
-        <Header />
-        <Main
-          setDashInfoData={setDashInfoData}
-          openAddLocationOverlay={openAddLocationOverlay}
-          openDashImageOverlay={openDashImageOverlay}
-          openDashInfoOverlay={openDashInfoOverlay}
-          infoData={dashData}
-          unlike={unlikeCard}
-          like={likeCard}
-          openDeleteLocationOverlay={openDeleteLocationOverlay}
-          setDeleteLocationData={setDeleteLocationData}
-          setImageOverlayData={setImageOverlayData}
-          openImageOverlay={openImageOverlay}
-          locationsData={locationsData}
-        ></Main>
-        <Footer />
-      </div>
+      <CurrentUserContext.Provider value={dashData}>
+        <div className="page">
+          <Header />
+          <Main
+            setDashInfoData={setDashInfoData}
+            openAddLocationOverlay={openAddLocationOverlay}
+            openDashImageOverlay={openDashImageOverlay}
+            openDashInfoOverlay={openDashInfoOverlay}
+            unlike={unlikeCard}
+            like={likeCard}
+            openDeleteLocationOverlay={openDeleteLocationOverlay}
+            setDeleteLocationData={setDeleteLocationData}
+            setImageOverlayData={setImageOverlayData}
+            openImageOverlay={openImageOverlay}
+            locationsData={locationsData}
+          ></Main>
+          <Footer />
+        </div>
+      </CurrentUserContext.Provider>
       <Overlay isOpen={isMainPopupOpen} closeAllOverlays={closeAllOverlays}>
         <PopupWithForm
           name="dashInfo"
