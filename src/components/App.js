@@ -32,7 +32,7 @@ function App() {
     about: "",
   });
   const [dashImageData, setDashImageData] = React.useState({ avatar: "" });
-  const [dashData, setDashData] = React.useState({
+  const [currentUser, setCurrentUser] = React.useState({
     name: "",
     about: "",
     avatar: "",
@@ -62,8 +62,8 @@ function App() {
   const openDashInfoOverlay = () => {
     setDashInfoData({
       ...dashInfoData,
-      name: dashData.name,
-      about: dashData.about,
+      name: currentUser.name,
+      about: currentUser.about,
     });
     setIsEditProfilePopupOpen(true);
   };
@@ -80,7 +80,7 @@ function App() {
     e.preventDefault();
     api
       .setUserInfo(dashInfoData)
-      .then((res) => setDashData(res))
+      .then((res) => setCurrentUser(res))
       .then(closeAllOverlays)
       .catch(api.logError);
   };
@@ -88,7 +88,7 @@ function App() {
     e.preventDefault();
     api
       .changeProfilePicture(dashImageData)
-      .then((res) => setDashData(res))
+      .then((res) => setCurrentUser(res))
       .then(closeAllOverlays)
       .catch(api.logError);
   };
@@ -138,8 +138,8 @@ function App() {
   React.useEffect(() => {
     Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([locations, info]) => {
-        setDashData({
-          ...dashData,
+        setCurrentUser({
+          ...currentUser,
           name: info.name,
           about: info.about,
           avatar: info.avatar,
@@ -152,7 +152,7 @@ function App() {
 
   return (
     <div className="App">
-      <CurrentUserContext.Provider value={dashData}>
+      <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <Header />
           <Main
