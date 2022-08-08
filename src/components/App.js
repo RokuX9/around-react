@@ -12,8 +12,7 @@ import DeletePlacePopup from "./DeletePlacePopup";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
-  const [locationsData, setLocationsData] = React.useState([]);
-  //const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
+  const [cards, setCards] = React.useState([]);
   const [imageOverlayData, setImageOverlayData] = React.useState({
     name: "",
     link: "",
@@ -36,7 +35,6 @@ function App() {
     avatar: "",
     id: "",
   });
-  const [isMainPopupOpen, setIsMainPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
@@ -46,8 +44,6 @@ function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] =
     React.useState(false);
   const closeAllOverlays = () => {
-    //setIsOpen({...isOpen, mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false })
-    setIsMainPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditProfileImagePopupOpen(false);
@@ -96,10 +92,8 @@ function App() {
     api
       .deleteCard(deleteLocationData)
       .then(
-        setLocationsData(
-          locationsData.filter(
-            (location) => location._id !== deleteLocationData.id
-          )
+        setCards(
+          cards.filter((location) => location._id !== deleteLocationData.id)
         )
       )
       .then(closeAllOverlays)
@@ -109,15 +103,15 @@ function App() {
     e.preventDefault();
     api
       .addNewCard(addLocationData)
-      .then((res) => setLocationsData([res, ...locationsData]))
+      .then((res) => setCards([res, ...cards]))
       .then(closeAllOverlays)
       .catch(api.logError);
   };
   const updateLocationState = (newState, locationIndex) => {
-    const copyArray = locationsData;
-    if (locationsData[locationIndex]._id === newState._id) {
+    const copyArray = cards;
+    if (cards[locationIndex]._id === newState._id) {
       copyArray.splice(locationIndex, 1, newState);
-      setLocationsData([...copyArray]);
+      setCards([...copyArray]);
     }
   };
   const likeCard = (id, locationIndex) => {
@@ -151,7 +145,7 @@ function App() {
           avatar: info.avatar,
           id: info._id,
         });
-        setLocationsData(locations);
+        setCards(locations);
       })
       .catch(api.logError);
   }, []);
@@ -171,7 +165,7 @@ function App() {
             setDeleteLocationData={setDeleteLocationData}
             setImageOverlayData={setImageOverlayData}
             openImageOverlay={openImageOverlay}
-            locationsData={locationsData}
+            locationsData={cards}
           ></Main>
           <Footer />
         </div>
