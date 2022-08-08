@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "../blocks/App.css";
-import Api from "../utils/api";
-import { apiObject } from "../utils/constants";
+import api from "../utils/api";
 import Header from "./Header";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
@@ -12,7 +11,6 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeletePlacePopup from "./DeletePlacePopup";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-const api = new Api(apiObject);
 function App() {
   const [locationsData, setLocationsData] = React.useState([]);
   //const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
