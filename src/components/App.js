@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../blocks/App.css";
-import api from "../utils/api";
+import Api from "../utils/api";
 import { apiObject } from "../utils/constants";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -12,7 +12,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import DeletePlacePopup from "./DeletePlacePopup";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-const apiInstance = new api(apiObject);
+const api = new Api(apiObject);
 function App() {
   const [locationsData, setLocationsData] = React.useState([]);
   //const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
@@ -78,24 +78,24 @@ function App() {
   };
   const submitDashInfo = (e) => {
     e.preventDefault();
-    apiInstance
+    api
       .setUserInfo(dashInfoData)
       .then((res) => setCurrentUser(res))
       .then(closeAllOverlays)
-      .catch(apiInstance.logError);
+      .catch(api.logError);
   };
   const submitDashImage = (e) => {
     e.preventDefault();
-    apiInstance
+    api
       .changeProfilePicture(dashImageData)
       .then((res) => setCurrentUser(res))
       .then(closeAllOverlays)
-      .catch(apiInstance.logError);
+      .catch(api.logError);
   };
   const submitDeleteLocation = (e) => {
     e.preventDefault();
     console.log(deleteLocationData);
-    apiInstance
+    api
       .deleteCard(deleteLocationData)
       .then(
         setLocationsData(
@@ -105,15 +105,15 @@ function App() {
         )
       )
       .then(closeAllOverlays)
-      .catch(apiInstance.logError);
+      .catch(api.logError);
   };
   const submitAddLocation = (e) => {
     e.preventDefault();
-    apiInstance
+    api
       .addNewCard(addLocationData)
       .then((res) => setLocationsData([res, ...locationsData]))
       .then(closeAllOverlays)
-      .catch(apiInstance.logError);
+      .catch(api.logError);
   };
   const updateLocationState = (newState, locationIndex) => {
     const copyArray = locationsData;
@@ -123,13 +123,13 @@ function App() {
     }
   };
   const likeCard = (id, locationIndex) => {
-    apiInstance
+    api
       .likeCard(id)
       .then((res) => updateLocationState(res, locationIndex))
       .catch((err) => console.log(err));
   };
   const unlikeCard = (id, locationIndex) => {
-    apiInstance
+    api
       .unlikeCard(id)
       .then((res) => updateLocationState(res, locationIndex))
       .catch((err) => console.log(err));
@@ -144,7 +144,7 @@ function App() {
   };
 
   React.useEffect(() => {
-    Promise.all([apiInstance.getInitialCards(), apiInstance.getUserInfo()])
+    Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([locations, info]) => {
         setCurrentUser({
           ...currentUser,
@@ -155,7 +155,7 @@ function App() {
         });
         setLocationsData(locations);
       })
-      .catch(apiInstance.logError);
+      .catch(api.logError);
   }, []);
 
   return (

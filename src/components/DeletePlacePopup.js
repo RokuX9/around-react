@@ -1,8 +1,6 @@
 import React from "react";
 import "../blocks/Overlay.css";
 import PopupWithForm from "./PopupWithForm";
-import Button from "./Button";
-import ImagePopup from "./ImagePopup";
 
 function Overlay(props) {
   const overlayRef = React.useRef(null);
