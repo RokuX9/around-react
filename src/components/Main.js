@@ -1,8 +1,10 @@
 import React from "react";
 import Dash from "./Dash";
 import Locations from "./Locations";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Main(props) {
+  const userData = React.useContext(CurrentUserContext);
   return (
     <main>
       <Dash
@@ -10,6 +12,7 @@ function Main(props) {
         openAddLocationOverlay={props.openAddLocationOverlay}
         openDashImageOverlay={props.openDashImageOverlay}
         openDashInfoOverlay={props.openDashInfoOverlay}
+        userData={userData}
       />
       <Locations
         unlike={props.unlike}
