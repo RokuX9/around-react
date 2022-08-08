@@ -16,8 +16,6 @@ function Locations(props) {
           setDeleteLocationData={props.setDeleteLocationData}
           openDeleteLocationOverlay={props.openDeleteLocationOverlay}
           locationsData={props.locationsData}
-          user={props.user}
-          isOwner={props.user.id === location.owner._id ? true : false}
           key={location._id}
         />
       ))}

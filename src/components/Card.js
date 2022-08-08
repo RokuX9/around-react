@@ -1,8 +1,10 @@
 import React from "react";
 import "../blocks/Location.css";
 import Button from "./Button";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Card(props) {
+  const userData = React.useContext(CurrentUserContext);
   const openImageOverlay = () => {
     props.setImageOverlayData({ name: props.data.name, link: props.data.link });
     props.openImageOverlay();
@@ -12,8 +14,9 @@ function Card(props) {
     props.openDeleteLocationOverlay();
   };
   const isUserLiked = props.data.likes.find((user) => {
-    return user._id === props.user.id;
+    return user._id === userData.id;
   });
+  const isOwner = props.data.owner._id === userData.id;
 
   const handleLike = () => {
     if (!isUserLiked) {
@@ -28,7 +31,7 @@ function Card(props) {
       <Button
         type="button"
         className={
-          props.isOwner
+          isOwner
             ? "location__button location__button_type_delete"
             : "location__button location__button_type_delete button_hidden"
         }

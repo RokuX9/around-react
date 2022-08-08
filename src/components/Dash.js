@@ -1,13 +1,15 @@
 import React from "react";
 import "../blocks/Dash.css";
 import Button from "./Button";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Dash(props) {
+  const userData = React.useContext(CurrentUserContext);
   return (
     <section className="dash">
       <div
         className="dash__profile-image"
-        style={{ backgroundImage: `url(${props.infoData.avatar})` }}
+        style={{ backgroundImage: `url(${userData.avatar})` }}
       >
         <Button
           className="dash__button dash__button_type_edit-image"
@@ -16,14 +18,14 @@ function Dash(props) {
       </div>
       <div className="dash__text">
         <div className="dash__line">
-          <h1 className="dash__user-title">{props.infoData.name}</h1>
+          <h1 className="dash__user-title">{userData.name}</h1>
           <Button
             type="button"
             className="dash__button dash__button_type_edit-info"
             onClick={props.openDashInfoOverlay}
           ></Button>
         </div>
-        <p className="dash__user-subtitle">{props.infoData.about}</p>
+        <p className="dash__user-subtitle">{userData.about}</p>
       </div>
       <Button
         type="button"
