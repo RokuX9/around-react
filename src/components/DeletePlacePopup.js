@@ -1,8 +1,10 @@
 import React from "react";
-import "../blocks/ImageOverlay.css";
+import "../blocks/Overlay.css";
+import PopupWithForm from "./PopupWithForm";
 import Button from "./Button";
+import ImagePopup from "./ImagePopup";
 
-function ImagePopup(props) {
+function Overlay(props) {
   const overlayRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -26,27 +28,20 @@ function ImagePopup(props) {
       className={props.isOpen ? "overlay overlay_opened" : "overlay"}
       ref={overlayRef}
     >
-      <div
-        className={
-          props.isOpen
-            ? "overlay__location overlay__element overlay__element_opened"
-            : "overlay__location overlay__element"
-        }
-      >
-        <img
-          src={props.locationData.link}
-          alt={props.locationData.name + " image"}
-          className="overlay__image"
-        />
-        <p className="overlay__location-name">{props.locationData.name}</p>
-        <Button
-          type="button"
-          className="overlay__button overlay__button_type_close button"
-          onClick={props.closeAllOverlays}
-        ></Button>
-      </div>
+      <PopupWithForm
+        name="deleteLocation"
+        header="Are you sure?"
+        inputs={[{ type: "hidden", name: "id", id: "location-id" }]}
+        buttonText="Yes"
+        isOpen={props.isOpen}
+        formState={props.formState}
+        hasInitialState={props.hasInitialState}
+        setFormState={props.setFormState}
+        submit={props.submit}
+        closeAllOverlays={props.closeAllOverlays}
+      />
     </div>
   );
 }
 
-export default ImagePopup;
+export default Overlay;

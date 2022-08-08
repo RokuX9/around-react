@@ -3,13 +3,13 @@ import "../blocks/App.css";
 import Api from "../utils/api";
 import { apiObject } from "../utils/constants";
 import Header from "./Header";
-import Dash from "./Dash";
 import Footer from "./Footer";
-import Overlay from "./Overlay";
-import Locations from "./Locations";
 import ImagePopup from "./ImagePopup";
-import PopupWithForm from "./PopupWithForm";
 import Main from "./Main";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import DeletePlacePopup from "./DeletePlacePopup";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 const api = new Api(apiObject);
@@ -57,8 +57,6 @@ function App() {
     setIsDeleteCardPopupOpen(false);
   };
   const openImageOverlay = () => {
-    //setIsOpen({...isOpen, mainOverlay: true, imageOverlay: true})
-    setIsMainPopupOpen(true);
     setIsImagePopupOpen(true);
   };
   const openDashInfoOverlay = () => {
@@ -67,23 +65,15 @@ function App() {
       name: dashData.name,
       about: dashData.about,
     });
-    //setIsOpen({...isOpen, mainOverlay: true, dashInfo: true})
-    setIsMainPopupOpen(true);
     setIsEditProfilePopupOpen(true);
   };
   const openDashImageOverlay = () => {
-    //setIsOpen({...isOpen, mainOverlay: true, dashImage: true})
-    setIsMainPopupOpen(true);
     setIsEditProfileImagePopupOpen(true);
   };
   const openDeleteLocationOverlay = () => {
-    //setIsOpen({...isOpen, mainOverlay: true, deleteLocation: true})
-    setIsMainPopupOpen(true);
     setIsDeleteCardPopupOpen(true);
   };
   const openAddLocationOverlay = () => {
-    //setIsOpen({...isOpen, mainOverlay: true, addLocation: true})
-    setIsMainPopupOpen(true);
     setIsAddCardPopupOpen(true);
   };
   const submitDashInfo = (e) => {
@@ -180,8 +170,45 @@ function App() {
           ></Main>
           <Footer />
         </div>
+        <ImagePopup
+          isOpen={isImagePopupOpen}
+          closeAllOverlays={closeAllOverlays}
+          locationData={imageOverlayData}
+        />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          closeAllOverlays={closeAllOverlays}
+          formState={dashInfoData}
+          hasInitialState={true}
+          setFormState={setDashInfoData}
+          submit={submitDashInfo}
+        />
+        <EditAvatarPopup
+          isOpen={isEditProfileImagePopupOpen}
+          formState={dashImageData}
+          hasInitialState={false}
+          setFormState={setDashImageData}
+          submit={submitDashImage}
+          closeAllOverlays={closeAllOverlays}
+        />
+        <AddPlacePopup
+          isOpen={isAddCardPopupOpen}
+          formState={addLocationData}
+          hasInitialState={false}
+          setFormState={setAddLocationData}
+          submit={submitAddLocation}
+          closeAllOverlays={closeAllOverlays}
+        />
+        <DeletePlacePopup
+          isOpen={isDeleteCardPopupOpen}
+          formState={deleteLocationData}
+          hasInitialState={false}
+          setFormState={setDeleteLocationData}
+          submit={submitDeleteLocation}
+          closeAllOverlays={closeAllOverlays}
+        />
       </CurrentUserContext.Provider>
-      <Overlay isOpen={isMainPopupOpen} closeAllOverlays={closeAllOverlays}>
+      {/* <Overlay isOpen={isMainPopupOpen} closeAllOverlays={closeAllOverlays}>
         <PopupWithForm
           name="dashInfo"
           header="Edit Profile"
@@ -274,7 +301,7 @@ function App() {
           locationData={imageOverlayData}
           functions={{ closeAllOverlays }}
         />
-      </Overlay>
+        </Overlay> */}
     </div>
   );
 }
