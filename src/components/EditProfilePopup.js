@@ -6,6 +6,8 @@ import ImagePopup from "./ImagePopup";
 
 function Overlay(props) {
   const overlayRef = React.useRef(null);
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
 
   React.useEffect(() => {
     if (!props.isOpen) return;
