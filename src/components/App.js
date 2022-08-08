@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../blocks/App.css';
 import Api from '../utils/Api'
 import { apiObject } from '../utils/constants';
@@ -14,31 +14,53 @@ import Main from './Main'
 const api = new Api(apiObject)
 function App() {
   const [locationsData, setLocationsData] = React.useState([])
-  const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
+  //const [isOpen, setIsOpen] = React.useState({mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false });
   const [imageOverlayData, setImageOverlayData] = React.useState({name: "", link: ""})
   const [deleteLocationData, setDeleteLocationData] = React.useState({id: ""})
   const [addLocationData, setAddLocationData] = React.useState({name: "", link: ""})
   const [dashInfoData, setDashInfoData] = React.useState({name: "", about: ""})
   const [dashImageData, setDashImageData] = React.useState({avatar: ""})
   const [dashData, setDashData] = React.useState({name: "", about: "", avatar: "", id: ""})
+  const [isMainPopupOpen, setIsMainPopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isEditProfileImagePopupOpen, setIsEditProfileImagePopupOpen] = React.useState(false)
+  const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false) 
   const closeAllOverlays = () => {
-    setIsOpen({...isOpen, mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false })
+    //setIsOpen({...isOpen, mainOverlay: false, dashInfo: false, dashImage: false, deleteLocation: false, addLocation: false, imageOverlay: false })
+    setIsMainPopupOpen(false)
+    setIsImagePopupOpen(false)
+    setIsEditProfilePopupOpen(false)
+    setIsEditProfileImagePopupOpen(false)
+    setIsAddCardPopupOpen(false)
+    setIsDeleteCardPopupOpen(false)
   }
   const openImageOverlay = () => {
-    setIsOpen({...isOpen, mainOverlay: true, imageOverlay: true})
+    //setIsOpen({...isOpen, mainOverlay: true, imageOverlay: true})
+    setIsMainPopupOpen(true)
+    setIsImagePopupOpen(true)
   }
   const openDashInfoOverlay = () => {
     setDashInfoData({...dashInfoData, name: dashData.name, about: dashData.about})
-    setIsOpen({...isOpen, mainOverlay: true, dashInfo: true})
+    //setIsOpen({...isOpen, mainOverlay: true, dashInfo: true})
+    setIsMainPopupOpen(true)
+    setIsEditProfilePopupOpen(true)
   }
   const openDashImageOverlay = () => {
-    setIsOpen({...isOpen, mainOverlay: true, dashImage: true})
+    //setIsOpen({...isOpen, mainOverlay: true, dashImage: true})
+    setIsMainPopupOpen(true)
+    setIsEditProfileImagePopupOpen(true)
   }
   const openDeleteLocationOverlay = () => {
-    setIsOpen({...isOpen, mainOverlay: true, deleteLocation: true})
+    //setIsOpen({...isOpen, mainOverlay: true, deleteLocation: true})
+    setIsMainPopupOpen(true)
+    setIsDeleteCardPopupOpen(true)
   }
   const openAddLocationOverlay = () => {
-    setIsOpen({...isOpen, mainOverlay: true, addLocation: true})
+    //setIsOpen({...isOpen, mainOverlay: true, addLocation: true})
+    setIsMainPopupOpen(true)
+    setIsAddCardPopupOpen(true)
   }
   const submitDashInfo = (e) => {
     e.preventDefault()
@@ -85,18 +107,16 @@ function App() {
     <div className="App">
       <div className="page">
         <Header />
-        <Main>
-            <Dash setDashInfoData={setDashInfoData} openAddLocationOverlay={openAddLocationOverlay} openDashImageOverlay={openDashImageOverlay} openDashInfoOverlay={openDashInfoOverlay} infoData={dashData} />
-            <Locations unlike={unlikeCard} like={likeCard} openDeleteLocationOverlay={openDeleteLocationOverlay} setDeleteLocationData={setDeleteLocationData} setImageOverlayData={setImageOverlayData} openImageOverlay={openImageOverlay} locationsData={locationsData} user={dashData}/>
+        <Main setDashInfoData={setDashInfoData} openAddLocationOverlay={openAddLocationOverlay} openDashImageOverlay={openDashImageOverlay} openDashInfoOverlay={openDashInfoOverlay} infoData={dashData} unlike={unlikeCard} like={likeCard} openDeleteLocationOverlay={openDeleteLocationOverlay} setDeleteLocationData={setDeleteLocationData} setImageOverlayData={setImageOverlayData} openImageOverlay={openImageOverlay} locationsData={locationsData}>
         </Main>
         <Footer />
       </div>
-      <Overlay isOpen={isOpen.mainOverlay} closeAllOverlays={closeAllOverlays}>
+      <Overlay isOpen={isMainPopupOpen} closeAllOverlays={closeAllOverlays}>
         <PopupWithForm name='dashInfo'
         header='Edit Profile'
         inputs={[{type: 'text', placeHolder: 'Name', name: 'name', minLength: 2, maxLength: 40, id: 'dash-name'}, {type: 'text', placeHolder: 'About', name: 'about', minLength: 2, maxLength: 200, id: 'dash-subtitle'}]}
         buttonText='Save'
-        isOpen={isOpen.dashInfo}
+        isOpen={isEditProfilePopupOpen}
         formState={dashInfoData}
         hasInitialState={true}
         setFormState={setDashInfoData}
@@ -106,7 +126,7 @@ function App() {
         header='Change profile picture'
         inputs={[{type: 'url', placeHolder: 'Avatar Image Link', name: 'avatar', id: 'dash-image'}]}
         buttonText='Save'
-        isOpen={isOpen.dashImage}
+        isOpen={isEditProfileImagePopupOpen}
         formState={dashImageData}
         hasInitialState={false}
         setFormState={setDashImageData}
@@ -116,7 +136,7 @@ function App() {
         header='New Place'
         inputs={[{type: 'text', placeHolder: 'Location Name', name: 'name', minLength: 1, maxLength: 30, id: 'location-name'}, {type: 'url', placeHolder: 'Location image URL', name: 'link', id: 'location-url'}]}
         buttonText='Save'
-        isOpen={isOpen.addLocation}
+        isOpen={isAddCardPopupOpen}
         formState={addLocationData}
         hasInitialState={false}
         setFormState={setAddLocationData}
@@ -126,13 +146,13 @@ function App() {
         header='Are you sure?'
         inputs={[{type: 'hidden', name: 'id', id: 'location-id'}]}
         buttonText='Yes'
-        isOpen={isOpen.deleteLocation}
+        isOpen={isDeleteCardPopupOpen}
         formState={deleteLocationData}
         hasInitialState={false}
         setFormState={setDeleteLocationData}
         submit={submitDeleteLocation}
         closeAllOverlays={closeAllOverlays} />
-        <ImagePopup overlayOpened={isOpen.imageOverlay} locationData={imageOverlayData} functions={{closeAllOverlays}} />
+        <ImagePopup overlayOpened={isImagePopupOpen} locationData={imageOverlayData} functions={{closeAllOverlays}} />
         </Overlay>
     </div>
   );
