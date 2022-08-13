@@ -6,34 +6,19 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 function Overlay(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const overlayRef = React.useRef(null);
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    props.setFormState({
+      name: currentUser.name,
+      about: currentUser.about,
+    });
   }, [currentUser]);
-
-  React.useEffect(() => {
-    if (!props.isOpen) return;
-    const closeByClick = (e) => {
-      if (e.target.classList.contains("overlay")) props.closeAllOverlays();
-    };
-    const closeByKey = (e) => {
-      if (e.key === "Escape") props.closeAllOverlays();
-    };
-    window.addEventListener("keydown", closeByKey);
-    overlayRef.current.addEventListener("mousedown", closeByClick);
-    return () => {
-      window.removeEventListener("keydown", closeByKey);
-      overlayRef.current.removeEventListener("mousedown", closeByClick);
-    };
-  }, [props.isOpen]);
 
   return (
     <div
       className={props.isOpen ? "overlay overlay_opened" : "overlay"}
       ref={overlayRef}
+      onClick={props.onClick}
     >
       <PopupWithForm
         name="dashInfo"
@@ -46,7 +31,7 @@ function Overlay(props) {
             minLength: 2,
             maxLength: 40,
             id: "dash-name",
-            defaultValue: name,
+            value: props.formState.name,
           },
           {
             type: "text",
@@ -55,7 +40,7 @@ function Overlay(props) {
             minLength: 2,
             maxLength: 200,
             id: "dash-subtitle",
-            defaultValue: description,
+            value: props.formState.about,
           },
         ]}
         buttonText="Save"

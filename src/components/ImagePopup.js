@@ -5,26 +5,11 @@ import Button from "./Button";
 function ImagePopup(props) {
   const overlayRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!props.isOpen) return;
-    const closeByClick = (e) => {
-      if (e.target.classList.contains("overlay")) props.closeAllOverlays();
-    };
-    const closeByKey = (e) => {
-      if (e.key === "Escape") props.closeAllOverlays();
-    };
-    window.addEventListener("keydown", closeByKey);
-    overlayRef.current.addEventListener("mousedown", closeByClick);
-    return () => {
-      window.removeEventListener("keydown", closeByKey);
-      overlayRef.current.removeEventListener("mousedown", closeByClick);
-    };
-  }, [props.isOpen]);
-
   return (
     <div
       className={props.isOpen ? "overlay overlay_opened" : "overlay"}
       ref={overlayRef}
+      onClick={props.onClick}
     >
       <div
         className={

@@ -19,7 +19,7 @@ function Card(props) {
   const isOwner = props.data.owner._id === userData.id;
 
   const handleLike = () => {
-    props.handleLikePress(isUserLiked, props.data._id, props.locationIndex);
+    props.handleLikePress(isUserLiked, props.data._id);
   };
 
   return (

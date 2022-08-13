@@ -24,11 +24,11 @@ function PopupWithForm(props) {
             type="text"
             isOpen={props.isOpen}
             placeholder={input.placeHolder}
-            defaultValue={props.hasInitialState ? input.defaultValue : ""}
             name={input.name}
             minLength={input.minLength}
             maxLength={input.maxLength}
             onChange={setFormState}
+            value={input.value}
             className="form__input"
             id={input.id}
             setValidation={setValidation}
@@ -44,6 +44,7 @@ function PopupWithForm(props) {
             placeholder={input.placeHolder}
             name={input.name}
             onChange={setFormState}
+            value={input.value}
             className="form__input"
             id={input.id}
             setValidation={setValidation}
@@ -79,6 +80,7 @@ function PopupWithForm(props) {
       setButtonDisabled();
       return;
     }
+    props.setFormState({});
     formRef.current.reset();
   }, [props.isOpen]);
 

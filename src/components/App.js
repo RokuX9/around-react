@@ -74,8 +74,10 @@ function App() {
     e.preventDefault();
     api
       .setUserInfo(dashInfoData)
-      .then((res) => setCurrentUser(res))
-      .then(closeAllOverlays)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllOverlays();
+      })
       .catch(api.logError);
   };
   const submitDashImage = (e) => {
@@ -91,7 +93,7 @@ function App() {
     console.log(deleteLocationData);
     api
       .deleteCard(deleteLocationData)
-      .then(
+      .then(() =>
         setCards(
           cards.filter((location) => location._id !== deleteLocationData.id)
         )
@@ -107,31 +109,29 @@ function App() {
       .then(closeAllOverlays)
       .catch(api.logError);
   };
-  const updateLocationState = (newState, locationIndex) => {
-    const copyArray = cards;
-    if (cards[locationIndex]._id === newState._id) {
-      copyArray.splice(locationIndex, 1, newState);
-      setCards([...copyArray]);
-    }
+  const updateLocationState = (newState) => {
+    setCards(
+      cards.map((card) => (card._id === newState._id ? newState : card))
+    );
   };
-  const likeCard = (id, locationIndex) => {
+  const likeCard = (id) => {
     api
       .likeCard(id)
-      .then((res) => updateLocationState(res, locationIndex))
+      .then((res) => updateLocationState(res))
       .catch((err) => console.log(err));
   };
-  const unlikeCard = (id, locationIndex) => {
+  const unlikeCard = (id) => {
     api
       .unlikeCard(id)
-      .then((res) => updateLocationState(res, locationIndex))
+      .then((res) => updateLocationState(res))
       .catch((err) => console.log(err));
   };
 
-  const handleLikePress = (isLiked, id, index) => {
+  const handleLikePress = (isLiked, id) => {
     if (!isLiked) {
-      likeCard(id, index);
+      likeCard(id);
     } else {
-      unlikeCard(id, index);
+      unlikeCard(id);
     }
   };
 
@@ -149,6 +149,35 @@ function App() {
       })
       .catch(api.logError);
   }, []);
+
+  React.useEffect(() => {
+    if (
+      !isAddCardPopupOpen &&
+      !isDeleteCardPopupOpen &&
+      !isEditProfileImagePopupOpen &&
+      !isEditProfilePopupOpen &&
+      !isImagePopupOpen
+    )
+      return;
+    const closeByKey = (e) => {
+      if (e.key === "Escape") closeAllOverlays();
+    };
+
+    window.addEventListener("keydown", closeByKey);
+    return () => {
+      window.removeEventListener("keydown", closeByKey);
+    };
+  }, [
+    isAddCardPopupOpen,
+    isDeleteCardPopupOpen,
+    isEditProfileImagePopupOpen,
+    isEditProfilePopupOpen,
+    isImagePopupOpen,
+  ]);
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("overlay")) closeAllOverlays();
+  };
 
   return (
     <div className="App">
@@ -173,6 +202,7 @@ function App() {
           isOpen={isImagePopupOpen}
           closeAllOverlays={closeAllOverlays}
           locationData={selectedCard}
+          onClick={handleOverlayClick}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -181,6 +211,7 @@ function App() {
           hasInitialState={true}
           setFormState={setDashInfoData}
           submit={submitDashInfo}
+          onClick={handleOverlayClick}
         />
         <EditAvatarPopup
           isOpen={isEditProfileImagePopupOpen}
@@ -197,6 +228,7 @@ function App() {
           setFormState={setAddLocationData}
           submit={submitAddLocation}
           closeAllOverlays={closeAllOverlays}
+          onClick={handleOverlayClick}
         />
         <DeletePlacePopup
           isOpen={isDeleteCardPopupOpen}
@@ -205,6 +237,7 @@ function App() {
           setFormState={setDeleteLocationData}
           submit={submitDeleteLocation}
           closeAllOverlays={closeAllOverlays}
+          onClick={handleOverlayClick}
         />
       </CurrentUserContext.Provider>
     </div>

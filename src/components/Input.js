@@ -37,11 +37,11 @@ function Input(props) {
         type={props.type}
         ref={inputRef}
         placeholder={props.placeholder}
-        defaultValue={props.defaultValue}
         name={props.name}
         minLength={props.minLength}
         maxLength={props.maxLength}
         onChange={handleInput}
+        value={props.value}
         className={
           "input " + props.className + (showError ? " input_error" : "")
         }
