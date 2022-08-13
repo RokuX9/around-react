@@ -25,7 +25,7 @@ function Overlay(props) {
         buttonText="Yes"
         isOpen={props.isOpen}
         formState={props.formState}
-        hasInitialState={props.hasInitialState}
+        initialState={props.initialState}
         setFormState={props.setFormState}
         submit={props.submit}
         closeAllOverlays={props.closeAllOverlays}

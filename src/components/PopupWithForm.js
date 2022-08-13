@@ -80,7 +80,7 @@ function PopupWithForm(props) {
       setButtonDisabled();
       return;
     }
-    props.setFormState({});
+    props.setFormState(props.initialState);
     formRef.current.reset();
   }, [props.isOpen]);
 

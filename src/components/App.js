@@ -17,18 +17,26 @@ function App() {
     name: "",
     link: "",
   });
-  const [deleteLocationData, setDeleteLocationData] = React.useState({
+  const deleteLocationInitial = {
     id: "",
-  });
-  const [addLocationData, setAddLocationData] = React.useState({
+  };
+  const [deleteLocationData, setDeleteLocationData] = React.useState(
+    deleteLocationInitial
+  );
+  const addLocationInitial = {
     name: "",
     link: "",
-  });
-  const [dashInfoData, setDashInfoData] = React.useState({
+  };
+  const [addLocationData, setAddLocationData] =
+    React.useState(addLocationInitial);
+
+  const dashInfoInitial = {
     name: "",
     about: "",
-  });
-  const [dashImageData, setDashImageData] = React.useState({ avatar: "" });
+  };
+  const [dashInfoData, setDashInfoData] = React.useState(dashInfoInitial);
+  const dashImageInitial = { avatar: "" };
+  const [dashImageData, setDashImageData] = React.useState(dashImageInitial);
   const [currentUser, setCurrentUser] = React.useState({
     name: "",
     about: "",
@@ -208,7 +216,7 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           closeAllOverlays={closeAllOverlays}
           formState={dashInfoData}
-          hasInitialState={true}
+          initialState={dashInfoInitial}
           setFormState={setDashInfoData}
           submit={submitDashInfo}
           onClick={handleOverlayClick}
@@ -216,7 +224,7 @@ function App() {
         <EditAvatarPopup
           isOpen={isEditProfileImagePopupOpen}
           formState={dashImageData}
-          hasInitialState={false}
+          initialState={dashImageInitial}
           setFormState={setDashImageData}
           submit={submitDashImage}
           closeAllOverlays={closeAllOverlays}
@@ -224,7 +232,7 @@ function App() {
         <AddPlacePopup
           isOpen={isAddCardPopupOpen}
           formState={addLocationData}
-          hasInitialState={false}
+          initialState={addLocationInitial}
           setFormState={setAddLocationData}
           submit={submitAddLocation}
           closeAllOverlays={closeAllOverlays}
@@ -233,7 +241,7 @@ function App() {
         <DeletePlacePopup
           isOpen={isDeleteCardPopupOpen}
           formState={deleteLocationData}
-          hasInitialState={false}
+          initialState={deleteLocationInitial}
           setFormState={setDeleteLocationData}
           submit={submitDeleteLocation}
           closeAllOverlays={closeAllOverlays}
