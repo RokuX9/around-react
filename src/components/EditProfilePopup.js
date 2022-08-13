@@ -3,7 +3,7 @@ import "../blocks/Overlay.css";
 import PopupWithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-function Overlay(props) {
+function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
   const overlayRef = React.useRef(null);
 
@@ -55,4 +55,4 @@ function Overlay(props) {
   );
 }
 
-export default Overlay;
+export default EditProfilePopup;

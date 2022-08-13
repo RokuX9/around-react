@@ -2,7 +2,7 @@ import React from "react";
 import "../blocks/Overlay.css";
 import PopupWithForm from "./PopupWithForm";
 
-function Overlay(props) {
+function AddPlacePopup(props) {
   const overlayRef = React.useRef(null);
 
   return (
@@ -44,4 +44,4 @@ function Overlay(props) {
   );
 }
 
-export default Overlay;
+export default AddPlacePopup;
